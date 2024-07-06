@@ -34,8 +34,8 @@ type OpenWeatherResp struct {
 	Dt      int           `json:"dt"`
 }
 
-func kevinToCelcius(f float32) float32 {
-	return f - 273
+func kevinToCelcius(k float32) float32 {
+	return k - 273
 }
 
 func main() {
