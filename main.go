@@ -101,7 +101,7 @@ func main() {
 		json.NewEncoder(w).Encode(info)
 	})
 
-	err = http.ListenAndServe(":8000", nil)
+	err := http.ListenAndServe(":8000", nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
