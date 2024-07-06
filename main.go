@@ -7,8 +7,10 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/ipinfo/go/v2/ipinfo"
+	"github.com/joho/godotenv"
 )
 
 type InfoResp struct {
@@ -39,12 +41,7 @@ func kevinToCelcius(k float32) float32 {
 
 func main() {
 	fmt.Println("Running ipinfo-client!")
-	/*
-		err := godotenv.Load(".env")
-		if err != nil {
-			log.Fatal("Error loading env file: ", err)
-		}
-	*/
+	godotenv.Load(".env")
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, you've requested: %s\n", r.URL.Path)
@@ -54,7 +51,12 @@ func main() {
 
 		clientIP := r.Header.Get("X-Real-Ip")
 		if clientIP == "" {
-			clientIP = r.Header.Get("X-Forwarded-For")
+			ips := strings.Split(r.Header.Get("X-Forwarded-For"), ",")
+			fmt.Println(ips)
+			clientIP = ips[0]
+		}
+		if clientIP == "" {
+			clientIP = r.RemoteAddr
 		}
 
 		ipInfoToken := os.Getenv("IPINFO_TOKEN")
