@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/ipinfo/go/v2/ipinfo"
 	"github.com/joho/godotenv"
@@ -39,9 +40,19 @@ func kevinToCelcius(k float32) float32 {
 	return k - 273
 }
 
+func stayAwake() {
+	fmt.Println("Staying awake")
+	go func() {
+		time.Sleep(5 * time.Second)
+		stayAwake()
+	}()
+}
+
 func main() {
 	fmt.Println("Running ipinfo-client!")
 	godotenv.Load(".env")
+
+	stayAwake()
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, you've requested: %s\n", r.URL.Path)
