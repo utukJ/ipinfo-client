@@ -86,7 +86,7 @@ func main() {
 		json.NewDecoder(resp.Body).Decode(&decodedResp)
 
 		info := InfoResp{
-			ClientIP: r.RemoteAddr,
+			ClientIP: clientIP,
 			Location: ipinfo.City,
 			Greeting: fmt.Sprintf(
 				"Hi %s. The weather is %.2f degrees celcius in %s with %s.",
