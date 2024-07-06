@@ -54,7 +54,7 @@ func main() {
 
 	stayAwake()
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/api/hello", func(w http.ResponseWriter, r *http.Request) {
 
 		clientIP := r.Header.Get("X-Real-Ip")
 		if clientIP == "" {
