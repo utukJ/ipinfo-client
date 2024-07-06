@@ -9,7 +9,6 @@ import (
 	"os"
 
 	"github.com/ipinfo/go/v2/ipinfo"
-	"github.com/joho/godotenv"
 )
 
 type InfoResp struct {
@@ -40,10 +39,12 @@ func kevinToCelcius(k float32) float32 {
 
 func main() {
 	fmt.Println("Running ipinfo-client!")
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal("Error loading env file: ", err)
-	}
+	/*
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Fatal("Error loading env file: ", err)
+		}
+	*/
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, you've requested: %s\n", r.URL.Path)
