@@ -52,7 +52,10 @@ func main() {
 
 	http.HandleFunc("/getinfo", func(w http.ResponseWriter, r *http.Request) {
 
-		clientIP := r.Header.Get("X-Forwarded-For")
+		clientIP := r.Header.Get("X-Real-Ip")
+		if clientIP == "" {
+			clientIP = r.Header.Get("X-Forwarded-For")
+		}
 
 		ipInfoToken := os.Getenv("IPINFO_TOKEN")
 		client := ipinfo.NewClient(nil, nil, ipInfoToken)
