@@ -55,10 +55,6 @@ func main() {
 	stayAwake()
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, you've requested: %s\n", r.URL.Path)
-	})
-
-	http.HandleFunc("/getinfo", func(w http.ResponseWriter, r *http.Request) {
 
 		clientIP := r.Header.Get("X-Real-Ip")
 		if clientIP == "" {
@@ -113,7 +109,7 @@ func main() {
 			),
 		}
 
-		fmt.Println("Delivering getinfo response")
+		fmt.Println("Delivering response")
 		json.NewEncoder(w).Encode(info)
 	})
 
